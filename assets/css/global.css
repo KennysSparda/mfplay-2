@@ -1,0 +1,26 @@
+:root {
+  /* Paleta de Cores */
+  --color-brown-dark: #5C4033; /* Madeira Nobre */
+  --color-gold: #C9A643; /* Sofisticação */
+  --color-black: #1E1E1E; /* Elegância */
+  --color-beige-light: #EDE0D4; /* Equilíbrio */
+
+  /* Tipografia */
+  --font-primary: 'Playfair Display', serif; /* Elegante */
+  --font-secondary: 'Montserrat', sans-serif; /* Moderna e clean */
+  
+  /* Espaçamentos */
+  --spacing-small: 8px;
+  --spacing-medium: 16px;
+  --spacing-large: 32px;
+
+  /* Alinhamento Padrão */
+  --container-width: 1200px; /* Layout centralizado */
+  --text-align: center;
+  --border-radius: 8px; /* Cantos suavemente arredondados */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+}
