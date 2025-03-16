@@ -1,5 +1,5 @@
 // src/index.js
+import { Router } from "./router.js"
 
-import App from './app.js'
-
-document.body.append(App())
+document.body.innerHTML = "<div id='app'></div>"
+Router()

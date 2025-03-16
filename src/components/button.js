@@ -1,6 +1,10 @@
-export default function Button(text, action) {
-  const Button = document.createElement('button')
-  Button.innerHTML = text
+// src/components/button.js
+export default function Button(label, onClick, className = "") {
+  const button = document.createElement("button")
+  button.textContent = label
+  button.className = className
 
-  return Button
+  if (onClick) button.addEventListener("click", onClick)
+
+  return button
 }

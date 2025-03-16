@@ -1,0 +1,32 @@
+.home-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  gap: 20px;
+}
+
+.home-title {
+  font-family: var(--font-primary);
+  font-size: 2rem;
+  color: var(--color-gold);
+}
+
+.home-button {
+  background-color: var(--color-brown-dark);
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  font-size: 1rem;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: 0.3s;
+}
+
+.home-button:hover {
+  background-color: var(--color-gold);
+  color: var(--color-black);
+}
+
+
