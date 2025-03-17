@@ -7,7 +7,6 @@ export default function VideoPlayer() {
   const page = document.createElement("div")
   page.className = "video-page"
 
-  // Pega o `src` da URL (ex: /video?src=http://localhost:3001/mkv/Naruto_01.mkv)
   const params = new URLSearchParams(window.location.search)
   const videoSrc = params.get("src")
 
@@ -16,9 +15,11 @@ export default function VideoPlayer() {
     return page
   }
 
-  const backButton = Button("Voltar", () => navigateTo("/"), "video-back-button")
-  const video = Video(videoSrc)
+  const backButton = Button("⬅ Voltar", () => navigateTo("/"), "video-back-button")
 
-  page.append(backButton, video)
+  // ✅ Agora o vídeo vai ser renderizado corretamente na tela
+  const videoElement = Video(`http://26.64.225.16:3000${videoSrc}`)
+
+  page.append(backButton, videoElement)
   return page
 }
