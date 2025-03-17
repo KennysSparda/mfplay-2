@@ -1,26 +1,28 @@
 :root {
-  /* Paleta de Cores */
-  --color-brown-dark: #5C4033; /* Madeira Nobre */
-  --color-gold: #C9A643; /* Sofisticação */
-  --color-black: #1E1E1E; /* Elegância */
-  --color-beige-light: #EDE0D4; /* Equilíbrio */
+  /* Nova Paleta de Cores */
+  --color-blue-dark: #00274D;  /* Azul Noturno - Fundo principal */
+  --color-blue-light: #0099FF; /* Azul Neon - Destaques */
+  --color-silver: #C0C0C0;     /* Prata - Elementos secundários */
+  --color-black: #121212;      /* Preto Profundo */
+  --color-white: #F5F5F5;      /* Branco Suave */
 
   /* Tipografia */
-  --font-primary: 'Playfair Display', serif; /* Elegante */
-  --font-secondary: 'Montserrat', sans-serif; /* Moderna e clean */
-  
+  --font-primary: 'Playfair Display', serif;
+  --font-secondary: 'Montserrat', sans-serif;
+
   /* Espaçamentos */
   --spacing-small: 8px;
   --spacing-medium: 16px;
   --spacing-large: 32px;
 
   /* Alinhamento Padrão */
-  --container-width: 1200px; /* Layout centralizado */
+  --container-width: 1200px;
   --text-align: center;
-  --border-radius: 8px; /* Cantos suavemente arredondados */
+  --border-radius: 8px;
 }
 
 * {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }

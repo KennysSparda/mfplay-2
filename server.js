@@ -1,10 +1,10 @@
 import { createServer } from "http"
-import { readdir, stat } from "fs"
+import { readdir, stat, createReadStream } from "fs"
 import { extname, join, basename } from "path"
 import { URL } from "url"
 
 const PORT = 3001
-const MOVIE_DIR = "./mkv"
+const MOVIE_DIR = "mkv"
 
 const getMovies = (dir, callback, files = []) => {
   readdir(dir, (err, items) => {
@@ -27,12 +27,15 @@ const getMovies = (dir, callback, files = []) => {
           })
         } else {
           if (extname(item) === ".mkv") {
+            const relativePath = filePath.replace(MOVIE_DIR, "").replace(/\\/g, "/").replace(/^\//, "")
+            
             files.push({
               title: basename(item, ".mkv"),
-              path: `http://localhost:${PORT}/mkv/${item}`,
-              cover: `http://localhost:${PORT}/covers/${basename(item, ".mkv")}.jpg`
+              path: `http://localhost:${PORT}/mkv/${encodeURIComponent(relativePath)}`,
+              cover: `http://localhost:${PORT}/covers/${encodeURIComponent(relativePath.replace(".mkv", ".jpg"))}`
             })
           }
+          
           if (!--pending) callback(null, files)
         }
       })
@@ -42,6 +45,7 @@ const getMovies = (dir, callback, files = []) => {
 
 const server = createServer((req, res) => {
   const url = new URL(req.url, `http://localhost:${PORT}`)
+  const filePath = join(MOVIE_DIR, decodeURIComponent(url.pathname.replace("/mkv/", "")))
 
   res.setHeader("Access-Control-Allow-Origin", "*")
   res.setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS")
@@ -62,7 +66,39 @@ const server = createServer((req, res) => {
       res.writeHead(200, { "Content-Type": "application/json" })
       res.end(JSON.stringify(movies))
     })
-  } else {
+  } 
+  
+  // Servindo vídeos da pasta /mkv/
+  else if (url.pathname.startsWith("/mkv/")) {
+    stat(filePath, (err, stats) => {
+      if (err || !stats.isFile()) {
+        res.writeHead(404, { "Content-Type": "text/plain" })
+        return res.end("Arquivo não encontrado")
+      }
+
+      res.writeHead(200, { "Content-Type": "video/mp4" }) // Definir o tipo correto do vídeo
+      createReadStream(filePath).pipe(res)
+    })
+  } 
+  else if (url.pathname.startsWith("/covers/")) {
+    const decodedPath = decodeURIComponent(url.pathname.replace("/covers/", ""))
+    const moviePath = join(MOVIE_DIR, decodedPath.replace(".jpg", ".mkv"))
+    const imagePath = moviePath.replace(".mkv", ".jpg")
+  
+    console.log("Buscando imagem em:", imagePath)
+  
+    stat(imagePath, (err, stats) => {
+      if (err || !stats.isFile()) {
+        res.writeHead(404, { "Content-Type": "text/plain" })
+        return res.end("Imagem não encontrada")
+      }
+  
+      res.writeHead(200, { "Content-Type": "image/jpeg" })
+      createReadStream(imagePath).pipe(res)
+    })
+  }
+  
+  else {
     res.writeHead(404, { "Content-Type": "text/plain" })
     res.end("Página não encontrada")
   }

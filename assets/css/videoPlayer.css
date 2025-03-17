@@ -1,0 +1,30 @@
+/* Estilos do Player de Vídeo */
+.video-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  background-color: var(--color-black);
+  color: var(--color-white);
+}
+
+.video-back-button {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: var(--color-blue-light);
+  color: var(--color-black);
+  border: none;
+  padding: 12px 24px;
+  font-size: 1.2rem;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: var(--border-radius);
+  transition: 0.3s ease-in-out;
+}
+
+.video-back-button:hover {
+  background-color: var(--color-silver);
+  color: var(--color-black);
+  transform: scale(1.05);
+}
