@@ -4,7 +4,7 @@ import { extname, join, basename } from "path"
 import { URL } from "url"
 
 const PORT = 3001
-const MOVIE_DIR = "mkv"
+const MOVIE_DIR = "\\\\26.64.225.16\\Filmes - Desenhos - Séries"
 
 const getMovies = (dir, callback, files = []) => {
   readdir(dir, (err, items) => {
