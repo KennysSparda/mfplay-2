@@ -1,9 +1,8 @@
 // src/pages/videoPlayer.js
 import Video from "../components/video.js"
-import Button from "../components/button.js"
 import { navigateTo } from "../router.js"
 
-export default function VideoPlayer() {
+export default function VideoPlayer(previousPath) {
   const page = document.createElement("div")
   page.className = "video-page"
 
@@ -15,11 +14,8 @@ export default function VideoPlayer() {
     return page
   }
 
-  const backButton = Button("⬅ Voltar", () => navigateTo("/"), "video-back-button")
+  const videoElement = Video(`http://26.64.225.16:3000${videoSrc}`, previousPath)
 
-  // ✅ Agora o vídeo vai ser renderizado corretamente na tela
-  const videoElement = Video(`http://26.64.225.16:3000${videoSrc}`)
-
-  page.append(backButton, videoElement)
+  page.append(videoElement)
   return page
 }

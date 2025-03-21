@@ -17,7 +17,36 @@ const scanDirectory = (dir, relativePath = '') => {
   const folderName = path.basename(dir)
   const folderUrl = '/folder/' + (relativePath ? relativePath.split(path.sep).map(encodeURIComponent).join('/') : '')
 
-  let node = { name: folderName, type: 'folder', path: relativePath, url: folderUrl, children: [] }
+  let folderCover = null
+  const possibleCoverExts = ['.jpg', '.jpeg', '.png']
+
+  for (const ext of possibleCoverExts) {
+    const coverOptions = [
+      path.join(dir, 'cover' + ext),
+      path.join(dir, 'folder' + ext),
+      path.join(dir, folderName + ext),
+    ]
+
+    for (const coverFile of coverOptions) {
+      if (fs.existsSync(coverFile)) {
+        const coverRelativePath = path.join(relativePath, path.basename(coverFile))
+
+        // 🚀 Garante que o caminho seja corretamente formatado
+        folderCover = '/cover/' + coverRelativePath.replace(/\\/g, '/').split('/').map(encodeURIComponent).join('/')
+        break
+      }
+    }
+    if (folderCover) break
+  }
+
+  let node = { 
+    name: folderName, 
+    type: 'folder', 
+    path: relativePath, 
+    url: folderUrl, 
+    cover: folderCover, // Agora corretamente formatado
+    children: [] 
+  }
 
   const items = fs.readdirSync(dir)
   items.forEach(item => {
@@ -28,16 +57,14 @@ const scanDirectory = (dir, relativePath = '') => {
     if (stat.isDirectory()) {
       node.children.push(scanDirectory(fullPath, itemRelativePath))
     } else if (item.match(/\.(mp4|mkv|avi|mov)$/i)) {
-      const videoUrl = '/video/' + itemRelativePath.split(path.sep).map(encodeURIComponent).join('/')
+      const videoUrl = '/video/' + itemRelativePath.replace(/\\/g, '/').split('/').map(encodeURIComponent).join('/')
       let coverUrl = null
-      const possibleCoverExts = ['.jpg', '.jpeg', '.png']
-      const baseName = path.parse(item).name
 
       for (const ext of possibleCoverExts) {
-        const coverFile = path.join(dir, baseName + ext)
+        const coverFile = path.join(dir, path.parse(item).name + ext)
         if (fs.existsSync(coverFile)) {
-          const coverRelativePath = path.join(relativePath, baseName + ext)
-          coverUrl = '/cover/' + coverRelativePath.split(path.sep).map(encodeURIComponent).join('/')
+          const coverRelativePath = path.join(relativePath, path.parse(item).name + ext)
+          coverUrl = '/cover/' + coverRelativePath.replace(/\\/g, '/').split('/').map(encodeURIComponent).join('/')
           break
         }
       }
@@ -45,8 +72,10 @@ const scanDirectory = (dir, relativePath = '') => {
       node.children.push({ name: item, type: 'video', path: itemRelativePath, url: videoUrl, cover: coverUrl })
     }
   })
+
   return node
 }
+
 
 // API para listar os vídeos e pastas
 app.get('/api/videos', (req, res) => {

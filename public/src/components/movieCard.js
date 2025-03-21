@@ -24,12 +24,11 @@ export default function MovieCard(movie) {
   // Se for um vídeo, exibe o botão de assistir
   if (movie.type === "video") {
     const watchButton = Button("▶ Assistir", () => {
-      navigateTo(`/video?src=${encodeURIComponent(movie.url)}`) // 🔥 Passando a URL correta para o player
+      navigateTo(`/video?src=${encodeURIComponent(movie.url)}&path=${window.location.pathname}`)
     }, "movie-button")
     movieCard.append(watchButton)
   }
   
-
   movieCard.append(cover, movieTitle)
   
   return movieCard

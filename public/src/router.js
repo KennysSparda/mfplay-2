@@ -14,7 +14,14 @@ function Router() {
   const app = document.getElementById("app")
   app.innerHTML = "" // Limpa a tela
 
-  const path = window.location.pathname
+  let path = window.location.pathname
+
+  // ⚠️ Impede loop de /folder/folder
+  if (path === "/folder/folder" || path === "/folder") {
+    console.warn("Corrigindo caminho:", path)
+    navigateTo("/")
+    return
+  }
 
   if (path.startsWith("/folder")) {
     app.appendChild(FolderView()) // Renderiza a tela de pastas
@@ -23,7 +30,6 @@ function Router() {
     app.appendChild(page())
   }
 }
-
 // Muda a tela sem recarregar a página
 function navigateTo(path) {
   window.history.pushState({}, "", path)

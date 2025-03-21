@@ -1,0 +1,130 @@
+/* hud.css */
+.video-controls {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+  padding: 10px;
+  transition: opacity 0.3s ease-in-out;
+  z-index: 10;
+  align-items: center;
+}
+
+.video-controls.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.video-controls.visible {
+  opacity: 1;
+}
+
+/* Barra de progresso */
+.video-progress {
+  width: 100%;
+  height: 6px;
+  transform: translateY(5px);
+  appearance: none;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  margin-bottom: 8px;
+}
+
+.video-progress:hover {
+  height: 8px;
+}
+
+.video-progress::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #ff0000;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Barra de volume */
+.video-volume {
+  width: 5%;
+  height: 6px;
+  transform: translateY(5px);
+  appearance: none;
+  background: rgba(255, 255, 255, 0.3);
+  cursor: pointer;
+  transition: height 0.2s;
+  margin-bottom: 8px;
+}
+
+.video-volume:hover {
+  height: 8px;
+}
+
+.video-volume::-webkit-slider-thumb {
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  background: #ff0000;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* Controles inferiores */
+.video-controls-buttons {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+}
+
+/* Botões principais (play/pause, volume, tela cheia) */
+.video-btn {
+  background: transparent;
+  color: white;
+  border: none;
+  padding: 8px;
+  font-size: 24px;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: background 0.3s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 50px;
+  min-height: 50px;
+  padding: 10px;
+}
+
+.video-btn:hover {
+  box-shadow: inset 0 0 0 2px cyan;
+  color: cyan;
+  transform: scale(1.1);
+}
+
+.video-btn:active {
+  transform: scale(0.9);
+}
+
+/* Botão de Play/Pause */
+.video-btn.play {
+  font-size: 28px;
+}
+
+/* Botão de Mudo */
+.video-btn.volume {
+  font-size: 20px;
+}
+
+/* Botão de Fechar */
+.video-btn.close {
+  font-size: 20px;
+  margin-left: auto;
+}
+
+/* Botão de Tela Cheia */
+.video-btn.fullscreen {
+  font-size: 20px;
+}

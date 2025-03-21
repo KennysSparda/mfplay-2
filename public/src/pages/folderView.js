@@ -6,10 +6,35 @@ export default function FolderView() {
   const page = document.createElement("div")
   page.className = "folder-view"
 
-  const params = decodeURIComponent(window.location.pathname.replace("/folder", "")) // Remove apenas "/folder"
+  const params = decodeURIComponent(window.location.pathname.replace("/folder", "")) // Remove "/folder"
 
-  const backButton = Button("⬅ Voltar", () => navigateTo("/"), "back-button")
-  page.appendChild(backButton)
+  // Container para o cabeçalho
+  const header = document.createElement("div")
+  header.className = "folder-header"
+
+  const backButton = Button("⬅ Voltar", () => {
+    const parts = params.split("/").filter(Boolean) // Divide caminho e remove vazios
+    parts.pop() // Remove a última pasta
+    
+    let newPath = parts.length ? `/folder/${parts.join("/")}` : "/" 
+  
+    if (newPath === "/folder") newPath = "/" // 👈 Evita ficar preso em "/folder"
+  
+    navigateTo(newPath)
+  }, "back-button")
+  header.appendChild(backButton)
+
+  const title = document.createElement("h2")
+  title.className = "folder-title"
+  title.textContent = params || "Biblioteca"
+  header.appendChild(title)
+
+  page.appendChild(header)
+
+  // Container do conteúdo
+  const content = document.createElement("div")
+  content.className = "folder-content"
+  page.appendChild(content)
 
   fetch(`http://26.64.225.16:3000/api/videos`)
     .then(res => res.json())
@@ -19,13 +44,16 @@ export default function FolderView() {
       const folderData = findFolder(data, params)
 
       if (folderData) {
-        page.appendChild(MovieList(folderData.children))
+        content.appendChild(MovieList(folderData.children))
       } else {
         console.error("❌ Caminho não encontrado:", params)
-        page.innerHTML += "<p>❌ Pasta não encontrada</p>"
+        content.innerHTML = "<p class='folder-error'>❌ Pasta não encontrada</p>"
       }
     })
-    .catch(err => console.error("Erro ao carregar pasta:", err))
+    .catch(err => {
+      console.error("Erro ao carregar pasta:", err)
+      content.innerHTML = "<p class='folder-error'>❌ Erro ao carregar os arquivos</p>"
+    })
 
   return page
 }
