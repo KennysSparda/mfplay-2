@@ -1,0 +1,55 @@
+/* video.css */
+.video-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.video-player {
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(255, 255, 255, 0.3);
+  outline: none;
+}
+
+/* Spinner de carregamento */
+.video-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 20px;
+  background: rgba(0, 0, 0, 0.6);
+  padding: 10px 20px;
+  border-radius: 5px;
+  display: none;
+}
+
+/* Feedback visual de ações (play, pause, avançar, retroceder) */
+.video-feedback {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 48px;
+  color: white;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.video-feedback.show {
+  opacity: 1;
+}
+
+/* Tela cheia */
+.video-container:fullscreen .video-player {
+  width: 100vw;
+  height: 100vh;
+  object-fit: contain;
+}

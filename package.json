@@ -1,0 +1,26 @@
+{
+  "name": "mfplay",
+  "version": "1.0.0",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KennysSparda/mfplay-2.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KennysSparda/mfplay-2/issues"
+  },
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.21.2",
+    "video.js": "^8.22.0"
+  },
+  "homepage": "https://github.com/KennysSparda/mfplay-2#readme",
+  "description": ""
+}
