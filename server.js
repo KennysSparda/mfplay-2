@@ -1,3 +1,4 @@
+
 const express = require('express')
 const fs = require('fs')
 const path = require('path')
@@ -8,7 +9,7 @@ app.use(cors())
 const PORT = 3000
 
 // const VIDEOS_DIR = path.resolve('D:/Filmes, Desenhos e Séries')
-const VIDEOS_DIR = path.resolve('C:/Users/kenny/OneDrive/Desktop/mfplay-2/public/mkv')
+const VIDEOS_DIR = path.resolve('/home/HTML/Filmes, Desenhos e Séries')
 
 // Serve os arquivos do frontend
 app.use(express.static(path.join(__dirname, 'public')))
@@ -129,11 +130,20 @@ app.get('/cover/*', (req, res) => {
   res.sendFile(coverPath)
 })
 
-// Servir o index.html para qualquer outra rota (SPA)
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, 'public', 'index.html'))
+  const indexPath = path.join(__dirname, 'public', 'index.html')
+  fs.readFile(indexPath, 'utf8', (err, html) => {
+    if (err) return res.sendStatus(500)
+
+    // Injeta o path direto no index
+    const modifiedHtml = html.replace(
+      '</body>',
+      `<script>window.INITIAL_PATH = "${req.path}"</script></body>`
+    )
+    res.send(modifiedHtml)
+  })
 })
 
 app.listen(PORT, () => {
-  console.log(`Servidor rodando em http://localhost:${PORT}`)
+  console.log(`Servidor rodando em http://mfcloud:${PORT}`)
 })

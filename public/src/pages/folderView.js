@@ -36,7 +36,7 @@ export default function FolderView() {
   content.className = "folder-content"
   page.appendChild(content)
 
-  fetch(`http://localhost:3000/api/videos`)
+  fetch("/api/videos")
     .then(res => res.json())
     .then(data => {
       console.log("Estrutura de pastas recebida:", data)

@@ -13,7 +13,8 @@ export default function Home() {
 
   home.appendChild(title)
   HomeVideo(home)
-  fetch("http://localhost:3000/api/videos")
+
+  fetch("/api/videos")
   .then(res => res.json())
   .then(data => {
     console.log("Dados recebidos:", data) // Verifica no console
@@ -26,7 +27,6 @@ export default function Home() {
   .catch(err => {
     console.error("Erro ao carregar filmes:", err)
   })
-
 
   return home
 }

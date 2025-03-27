@@ -1,14 +1,6 @@
-// src/app.js
-import Button from "./components/button.js"
-import Video from "./components/video.js"
+import { Router } from "./router.js"
 
-export default function App() {
-  const app = document.createElement("div")
+document.body.innerHTML = "<div id='app'></div>"
 
-  const button = Button("Aperte aqui")
-  const video = Video("mkv/Naruto Classico/Naruto Classico 01.mkv")
-
-  app.append(button, video)
-
-  return app
-}
+const initialPath = window.INITIAL_PATH || window.location.pathname
+Router(initialPath)

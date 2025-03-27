@@ -14,7 +14,7 @@ export default function VideoPlayer(previousPath) {
     return page
   }
 
-  const videoElement = Video(`http://localhost:3000${videoSrc}`, previousPath)
+  const videoElement = Video(videoSrc, previousPath)
 
   page.append(videoElement)
   return page
