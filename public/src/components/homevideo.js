@@ -4,7 +4,7 @@ export default function HomeVideo(home) {
   camera.position.z = 5;
 
   const renderer = new THREE.WebGLRenderer({ alpha: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setSize(window.innerWidth /2, window.innerHeight /2);
   renderer.setClearColor(0x000000, 0);
   home.appendChild(renderer.domElement);
 

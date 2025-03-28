@@ -3,7 +3,7 @@
   align-items: center;
   justify-content: center;
   width: 66.66%; /* 2/3 da largura */
-  height: 100vh;
+  height: 250px;
   background-color: var(--color-blue-dark);
 }
 
