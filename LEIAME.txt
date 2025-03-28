@@ -1,0 +1,147 @@
+(1940) Charlie Chaplin O Grande Ditador
+(1987) Nascido Para Matar
+(1989) K-9 1 Um Policial Bom pra Cachorro
+(1990) Os Bons Companheiros
+(1993) A Lista de Schindler
+(1994) O Corvo
+(1994) Um Sonho de Liberdade
+(1998) O Resgate do Soldado Ryan
+(1999) Jogos, Trapaças e Dois Canos Fumegantes
+(2000) Eclipse Mortal
+(2000) Todo Mundo em Pânico
+(2001) Falcão Negro Em Perigo
+(2001) Pearl Harbor
+(2001) Todo Mundo em Panico 2
+(2002) Gangues de Nova York
+(2002) Homem-Aranha
+(2002) O Pianista
+(2002) Prenda-me se For Capaz 1080p
+(2003) Meu Nome é Rádio
+(2003) Todo Mundo em Pânico 3
+(2004) A Batalha de Riddick
+(2004) A Queda! As Últimas Horas de Hitler
+(2004) As Branquelas
+(2004) Homem-Aranha 2
+(2006) Cartas De Iwo Jima
+(2006) Diamante de Sangue
+(2006) Todo Mundo Em Pânico 4
+(2007) Homem-Aranha 3
+(2007) Motoqueiro Fantasma
+(2008) Guerra ao Terror
+(2008) Homem de Ferro
+(2008) À Prova de Fogo
+(2009) Avatar - Versão Estendida
+(2009) Distrito 9
+(2010) Homem de Ferro 2
+(2010) Legião
+(2010) Um Jantar para Idiotas
+(2010) Vírus
+(2012) A Entidade
+(2012) Django Livre
+(2012) Entre inimigos
+(2012) O Hobbit Uma Jornada Inesperada
+(2012) O Impossível
+(2013) A Menina que Roubava Livros
+(2013) Círculo de Fogo
+(2013) João e Maria Caçadores de Bruxas
+(2013) O Grande Herói
+(2013) O Hobbit A Desolação de Smaug
+(2013) Riddick 3
+(2013) Todo Mundo em Pânico 5
+(2014) E o Fim
+(2014) Guardiões da Galáxia
+(2014) Homem de Ferro 3
+(2014) O Hobbit A Batalha dos Cinco Exércitos
+(2014) O Lobo de Wall Street
+(2014) Stalingrado - A Batalha Final
+(2015) A Entidade 2
+(2015) Beasts of No Nation
+(2015) Corações de Ferro
+(2015) Mad Max - Estrada da Fúria
+(2016) Absolutamente Impossível
+(2016) Cães de Guerra
+(2016) O Lar das Crianças Peculiares
+(2017) 1922
+(2017) Dunkirk
+(2017) Fragmentado
+(2017) Guardiões da Galáxia Vol. 2
+(2017) Pandemia
+(2017) Piratas do Caribe A Vingança de Salazar
+(2017) Um Limite Entre Nós
+(2018) Cloverfield - A Partícula de Deus
+(2018) Constantine - Cidade de Demônios
+(2018) Jogador Nº 1
+(2018) Mentes Sombrias
+(2018) Na Selva
+(2018) O Último Suspiro
+(2018) Tempestade - Planeta em Fúria
+(2018) Um Lugar Silencioso
+(2019) A Maldição da Chorona
+(2019) Annabelle 3 - De Volta para Casa
+(2019) Bohemian Rhapsody
+(2019) Era Uma Vez em... Hollywood
+(2019) Fim do Mundo
+(2019) O Rei Leão
+(2019) Rambo - Até o Fim
+(2019) Vidro
+(2020) A Ilha
+(2020) As Ondas
+(2020) Até o Limite
+(2020) Aves de Rapina Arlequina e sua Emancipacao Fantabulosa
+(2020) Destruição Final O Ultimo Refugio
+(2020) Fanático
+(2020) Jojo Rabbit
+(2020) Magnatas do Crime
+(2020) O Exterminador do Futuro - Destino Sombrio
+(2020) O Grito
+(2020) O Homem Invisível
+(2020) Os Novos Mutantes
+(2020) Projeto Gemini
+(2020) Resgate
+(2020) Soldado Anônimo - A Lei do Retorno
+(2020) Star Wars - A Ascensão Skywalker
+(2020) The Quarry
+(2021) A Guerra do Amanha
+(2021) Anonimo
+(2021) Free Guy Assumindo o Controle
+
+Harry Potter (~ 2011) (2001)
+
+Jumanji (- 2020) (1995)
+
+Maze Runner (~ 2018) (2015)
+
+
+// Variáveis para controle do movimento da câmera
+let isRotating = false;
+let lastMouseX = 0;
+let lastMouseY = 0;
+let rotationSpeed = 0.005;
+
+// Eventos do mouse para rotação da câmera
+home.addEventListener('mousedown', (event) => {
+  isRotating = true;
+  lastMouseX = event.clientX;
+  lastMouseY = event.clientY;
+});
+
+home.addEventListener('mousemove', (event) => {
+  if (isRotating) {
+    let deltaX = event.clientX - lastMouseX;
+    let deltaY = event.clientY - lastMouseY;
+
+    camera.rotation.y -= deltaX * rotationSpeed;
+    camera.rotation.x -= deltaY * rotationSpeed;
+
+    lastMouseX = event.clientX;
+    lastMouseY = event.clientY;
+  }
+});
+
+home.addEventListener('mouseup', () => {
+  isRotating = false;
+});
+
+home.addEventListener('mouseleave', () => {
+  isRotating = false;
+});

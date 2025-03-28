@@ -2,7 +2,6 @@
 import HUD from "./hud.js";
 import { navigateTo } from "../router.js"; // Importe a função de navegação
 
-
 export default function Video(url, previousPath = "/") { // 👈 Adiciona parâmetro para lembrar de onde veio
   const container = document.createElement("div");
   container.classList.add("video-container");

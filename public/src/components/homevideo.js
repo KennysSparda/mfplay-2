@@ -33,19 +33,19 @@ export default function HomeVideo(home) {
   const backMaterial = new THREE.MeshStandardMaterial({
     color: 0xaaaaaa, 
     metalness: 1, 
-    roughness: 1, 
+    roughness: 0, 
     envMap: cubeRenderTarget.texture
   });
   const back = new THREE.Mesh(backGeometry, backMaterial);
-  back.position.z = -0.0455;
+  back.position.z = -0.1;
   tv.add(back);
 
   // Create LEDs
   const ledGeometry = new THREE.BoxGeometry(0.01, 0.01, 0.01);
   const ledMaterial = new THREE.MeshBasicMaterial({ color: 0x00ffff });
   const leds = [];
-  for (let i = -1.8; i <= 1.8; i += 0.09) {
-    for (let j = -1.1; j <= 1.1; j += 0.08) {
+  for (let i = -1.8; i <= 1.8; i += 0.1) {
+    for (let j = -1.1; j <= 1.1; j += 0.1) {
       const led = new THREE.Mesh(ledGeometry, ledMaterial);
       led.position.set(i, j, -0.01);
       back.add(led);
@@ -53,20 +53,32 @@ export default function HomeVideo(home) {
     }
   }
 
-  const particleCount = 10;
+  const particleCount = 100;
   const particles = new THREE.BufferGeometry();
   const particlePositions = new Float32Array(particleCount * 3);
   const particleVelocities = new Float32Array(particleCount * 3);
 
   for (let i = 0; i < particleCount; i++) {
-    particlePositions[i * 3] = 0 + i * 2;
-    particlePositions[i * 3 + 1] = 0 + i * 2;
-    particlePositions[i * 3 + 2] = 0 + i * 2;
-
-    particleVelocities[i * 3] = (Math.random() - 0.5) * 0.001;
-    particleVelocities[i * 3 + 1] = (Math.random() - 0.5) * 0.001;
-    particleVelocities[i * 3 + 2] = (Math.random() * 2) + 0.001;
+    // Começa do centro
+    particlePositions[i * 3] = 0
+    particlePositions[i * 3 + 1] = 0
+    particlePositions[i * 3 + 2] = 0
+  
+    // Direção aleatória em 360°
+    const theta = Math.random() * 2 * Math.PI
+    const phi = Math.acos(2 * Math.random() - 1)
+  
+    const x = Math.sin(phi) * Math.cos(theta)
+    const y = Math.sin(phi) * Math.sin(theta)
+    const z = Math.cos(phi)
+  
+    const speed = Math.random() * 0.02 + 0.005
+  
+    particleVelocities[i * 3] = x * speed
+    particleVelocities[i * 3 + 1] = y * speed
+    particleVelocities[i * 3 + 2] = z * speed
   }
+  
 
   particles.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
   particles.setAttribute('velocity', new THREE.BufferAttribute(particleVelocities, 3));
@@ -115,26 +127,11 @@ export default function HomeVideo(home) {
     isDragging = false;
   });
 
-  // Criar luzes amareladas na frente do usuário, como holofotes de cinema
-  const lightColor = 0xffcc66; // Tom quente para simular iluminação clássica de cinema
-  const lightIntensity = 2;
-  const lightDistance = 15;
-  const numLights = 6;
-  const lightSpacing = 0.8;
-
-  const lightsFront = [];
-
-  for (let i = 0; i < numLights; i++) {
-    const light = new THREE.PointLight(lightColor, lightIntensity, lightDistance);
-    light.position.set((i - numLights / 2) * lightSpacing, (i % 2 === 0 ? 1 : -1) * 2, 4);
-    scene.add(light);
-    lightsFront.push(light);
-  }
-
-
   function animate() {
-    // cubeCamera.position.copy(back.position);
-
+    back.visible = false; // Esconde a TV antes de capturar
+    cubeCamera.update(renderer, scene);
+    back.visible = true; // Mostra a TV de novo
+  
 
     
     const positions = particleSystem.geometry.attributes.position.array;
@@ -146,8 +143,8 @@ export default function HomeVideo(home) {
       positions[i * 3 + 2] += velocities[i * 3 + 2];
 
       if (positions[i * 3 + 2] > 5) {
-        positions[i * 3] = 0;
-        positions[i * 3 + 1] = 0;
+        positions[i * 3] = 1;
+        positions[i * 3 + 1] = 1;
         positions[i * 3 + 2] = 0;
       }
     }

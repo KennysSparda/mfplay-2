@@ -14,8 +14,8 @@ export default function VideoPlayer(previousPath) {
     return page
   }
 
-  const videoElement = Video(videoSrc, previousPath)
+  const videoComponent = Video(videoSrc, previousPath)
 
-  page.append(videoElement)
+  page.append(videoComponent)
   return page
 }
