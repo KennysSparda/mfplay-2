@@ -1,3 +1,40 @@
+   /////////////////////////////////////////////////////////////////
+  // 
+ //   🖥️ Como acessar o servidor e rodar o projeto:
+//
+/
+1️⃣ Entrar no tmux
+Para voltar à sessão de trabalho no servidor:
+
+tmux attach-session -t producao
+
+2️⃣ Iniciar o processo
+Depois de acessar a sessão do tmux, inicie o servidor com:
+
+npm start
+
+3️⃣ Parar o processo
+Para interromper o processo no tmux, aperte:
+
+Ctrl + c
+
+🧠 Dicas adicionais
+Desconectar sem matar a sessão:
+Se precisar sair do tmux sem finalizar a sessão, use:
+
+Ctrl + a depois d
+Isso vai "desgrudar" do tmux, mantendo o processo em segundo plano.
+
+Voltar para a sessão:
+Para conectar novamente, basta usar:
+
+tmux attach-session -t producao
+
+   /////////////////////////////////////////////////////////////////
+  // 
+ //   🎞️ Lista de filmes
+//
+/
 (1940) Charlie Chaplin O Grande Ditador
 (1987) Nascido Para Matar
 (1989) K-9 1 Um Policial Bom pra Cachorro
@@ -105,43 +142,11 @@
 (2021) Anonimo
 (2021) Free Guy Assumindo o Controle
 
+ ////////////////////
+// Coleções
+
 Harry Potter (~ 2011) (2001)
 
 Jumanji (- 2020) (1995)
 
 Maze Runner (~ 2018) (2015)
-
-
-// Variáveis para controle do movimento da câmera
-let isRotating = false;
-let lastMouseX = 0;
-let lastMouseY = 0;
-let rotationSpeed = 0.005;
-
-// Eventos do mouse para rotação da câmera
-home.addEventListener('mousedown', (event) => {
-  isRotating = true;
-  lastMouseX = event.clientX;
-  lastMouseY = event.clientY;
-});
-
-home.addEventListener('mousemove', (event) => {
-  if (isRotating) {
-    let deltaX = event.clientX - lastMouseX;
-    let deltaY = event.clientY - lastMouseY;
-
-    camera.rotation.y -= deltaX * rotationSpeed;
-    camera.rotation.x -= deltaY * rotationSpeed;
-
-    lastMouseX = event.clientX;
-    lastMouseY = event.clientY;
-  }
-});
-
-home.addEventListener('mouseup', () => {
-  isRotating = false;
-});
-
-home.addEventListener('mouseleave', () => {
-  isRotating = false;
-});
