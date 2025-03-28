@@ -6,7 +6,7 @@ const cors = require('cors')
 
 const app = express()
 app.use(cors())
-const PORT = 80
+const PORT = 3000
 
 // const VIDEOS_DIR = path.resolve('D:/Filmes, Desenhos e Séries')
 const VIDEOS_DIR = path.resolve('/home/HTML/Filmes, Desenhos e Séries')
